@@ -49,6 +49,7 @@ object Deps {
 
     object Hilt {
         const val hiltAndroid = "com.google.dagger:hilt-android:${Versions.Hilt.hiltAndroidVersion}"
+        const val hiltNavigationCompose = "androidx.hilt:hilt-navigation-compose:${Versions.Hilt.hiltNavigation}"
         const val hiltAndroidCompiler =
             "com.google.dagger:hilt-android-compiler:${Versions.Hilt.hiltAndroidVersion}"
     }

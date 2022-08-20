@@ -5,7 +5,7 @@ import retrofit2.http.GET
 
 interface AppService {
 
-    @GET("product")
+    @GET("products")
     suspend fun getProduct(): ProductResponse
 
 }

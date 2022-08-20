@@ -17,6 +17,7 @@ object Versions {
 
     object Hilt {
         const val hiltAndroidVersion = "2.42"
+        const val hiltNavigation = "1.0.0"
     }
 
     const val kotlinVersion = "1.7.0"

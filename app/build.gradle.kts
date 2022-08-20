@@ -59,6 +59,7 @@ dependencies {
     implementation(Deps.Navigation.navFragment)
     implementation(Deps.Navigation.navUI)
     implementation(Deps.Hilt.hiltAndroid)
+    implementation(Deps.Hilt.hiltNavigationCompose)
     kapt(Deps.Hilt.hiltAndroidCompiler)
     implementation(Deps.Android.X.lifecycleRuntime)
 
