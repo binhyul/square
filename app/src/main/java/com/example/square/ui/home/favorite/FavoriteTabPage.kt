@@ -48,7 +48,10 @@ fun FavoriteTabPage(
     LaunchedEffect(Unit) {
         focusRequester.requestFocus()
         refresh.collectLatest {
-            viewModel.refreshProduct()
+            if (it) {
+                navController.currentBackStackEntry?.savedStateHandle?.remove<Boolean>("refresh")
+                viewModel.refreshProduct()
+            }
         }
     }
 

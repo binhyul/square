@@ -32,7 +32,10 @@ fun ListTabPage(
 
     LaunchedEffect(Unit) {
         refresh.collectLatest {
-            viewModel.refreshProduct()
+            if (it) {
+                navController.currentBackStackEntry?.savedStateHandle?.remove<Boolean>("refresh")
+                viewModel.refreshProduct()
+            }
         }
     }
 
