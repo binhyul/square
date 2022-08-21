@@ -50,7 +50,7 @@ fun ProductDetail(viewModel: ProductDetailViewModel= hiltViewModel()) {
             modifier = Modifier
                 .size(36.dp)
                 .clickable {
-                    viewModel.onClickLikeProduct(product)
+                    viewModel.onClickLikeProduct()
                 }
         )
     }

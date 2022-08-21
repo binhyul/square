@@ -1,5 +1,6 @@
 package com.example.square.ui.detail
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -22,11 +23,11 @@ class ProductDetailViewModel @Inject constructor(
         ProductModel("", "", 0, "", 0)
     )
 
-    fun onClickLikeProduct(productModel: ProductModel) {
+    fun onClickLikeProduct() {
         viewModelScope.launch {
-            clickLikeProductUseCase(productModel).runCatching {
+            clickLikeProductUseCase(product.value).runCatching {
                 onSuccess {
-                    savedStateHandle[PRODUCT_DETAIL] = productModel
+                    savedStateHandle[PRODUCT_DETAIL] = it
                 }.onFailure {
                     it.printStackTrace()
                 }
