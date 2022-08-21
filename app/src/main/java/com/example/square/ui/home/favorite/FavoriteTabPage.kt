@@ -26,13 +26,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.square.ui.home.Product
 import com.google.gson.Gson
-import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun FavoriteTabPage(
     navController: NavController,
+    refresh: StateFlow<Boolean>,
     viewModel: FavoritePageViewModel = hiltViewModel()
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -45,6 +47,9 @@ fun FavoriteTabPage(
 
     LaunchedEffect(Unit) {
         focusRequester.requestFocus()
+        refresh.collectLatest {
+            viewModel.refreshProduct()
+        }
     }
 
     Column {
@@ -101,7 +106,7 @@ fun FavoriteTabPage(
                 Product(productModel = product, clickAction = {
                     navController.navigate("detail/${Gson().toJson(product)}")
                 }, clickLickAction = {
-                    viewModel.onClickLikeProduct(product){
+                    viewModel.onClickLikeProduct(product) {
 
                     }
                 })

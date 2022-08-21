@@ -17,11 +17,15 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.pagerTabIndicatorOffset
 import com.google.accompanist.pager.rememberPagerState
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun Home(navController: NavController) {
+fun Home(
+    navController: NavController,
+    refresh: StateFlow<Boolean>
+) {
     val coroutineScope = rememberCoroutineScope()
     val tabs = TabType.values()
     val pageState = rememberPagerState(
@@ -49,8 +53,8 @@ fun Home(navController: NavController) {
         }
         HorizontalPager(count = tabs.size, state = pageState) { page ->
             when (pageState.currentPage) {
-                0 -> ListTabPage(navController = navController)
-                else -> FavoriteTabPage(navController = navController)
+                0 -> ListTabPage(navController = navController, refresh = refresh)
+                else -> FavoriteTabPage(navController = navController, refresh = refresh)
             }
         }
     }

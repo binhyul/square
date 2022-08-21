@@ -21,10 +21,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.square.R
 
 @Composable
-fun ProductDetail(viewModel: ProductDetailViewModel= hiltViewModel()) {
+fun ProductDetail(
+    navController: NavController,
+    viewModel: ProductDetailViewModel = hiltViewModel()
+) {
     val coroutineScope = rememberCoroutineScope()
     val product by viewModel.product.collectAsState()
 
@@ -51,6 +55,10 @@ fun ProductDetail(viewModel: ProductDetailViewModel= hiltViewModel()) {
                 .size(36.dp)
                 .clickable {
                     viewModel.onClickLikeProduct()
+                    navController.previousBackStackEntry?.savedStateHandle?.set(
+                        "refresh",
+                        true
+                    )
                 }
         )
     }
