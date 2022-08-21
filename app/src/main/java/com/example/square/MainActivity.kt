@@ -19,6 +19,8 @@ import com.example.square.ui.home.model.AssetParamType
 import com.example.square.ui.theme.SquareTheme
 import dagger.hilt.android.AndroidEntryPoint
 
+const val REFRESH = "refresh"
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +44,7 @@ fun Main() {
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
             val refresh =
-                it.savedStateHandle.getStateFlow("refresh", false)
+                it.savedStateHandle.getStateFlow(REFRESH, false)
             Home(navController, refresh)
         }
         composable("detail/{${PRODUCT_DETAIL}}", arguments = listOf(

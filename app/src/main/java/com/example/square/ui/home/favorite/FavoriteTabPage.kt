@@ -24,6 +24,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.square.REFRESH
 import com.example.square.ui.home.Product
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.StateFlow
@@ -49,7 +50,7 @@ fun FavoriteTabPage(
         focusRequester.requestFocus()
         refresh.collectLatest {
             if (it) {
-                navController.currentBackStackEntry?.savedStateHandle?.remove<Boolean>("refresh")
+                navController.currentBackStackEntry?.savedStateHandle?.remove<Boolean>(REFRESH)
                 viewModel.refreshProduct()
             }
         }

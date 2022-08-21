@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.square.R
+import com.example.square.REFRESH
 
 @Composable
 fun ProductDetail(
@@ -56,7 +57,7 @@ fun ProductDetail(
                 .clickable {
                     viewModel.onClickLikeProduct()
                     navController.previousBackStackEntry?.savedStateHandle?.set(
-                        "refresh",
+                        REFRESH,
                         true
                     )
                 }

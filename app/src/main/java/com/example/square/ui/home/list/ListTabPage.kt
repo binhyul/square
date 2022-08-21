@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.square.REFRESH
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.pagerTabIndicatorOffset
@@ -33,7 +34,7 @@ fun ListTabPage(
     LaunchedEffect(Unit) {
         refresh.collectLatest {
             if (it) {
-                navController.currentBackStackEntry?.savedStateHandle?.remove<Boolean>("refresh")
+                navController.currentBackStackEntry?.savedStateHandle?.remove<Boolean>(REFRESH)
                 viewModel.refreshProduct()
             }
         }
