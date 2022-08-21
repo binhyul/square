@@ -43,7 +43,7 @@ class ListPageViewModel @Inject constructor(
         }
     }
 
-    fun onClickLikeProduct(productModel: ProductModel, update: suspend () -> Unit) {
+    fun onClickLikeProduct(productModel: ProductModel, update: () -> Unit) {
         viewModelScope.launch {
             clickLikeProductUseCase(productModel).runCatching {
                 onSuccess {

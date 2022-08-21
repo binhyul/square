@@ -11,14 +11,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.square.ui.home.Product
 import com.google.gson.Gson
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.receiveAsFlow
 
 @Composable
 fun ListTab(
     viewModel: ListPageViewModel,
     navController: NavController,
-    categoryId: String
+    categoryId: String,
+    refresh : () -> Unit
 ) {
     val products by viewModel.products.collectAsState()
 
@@ -32,7 +31,7 @@ fun ListTab(
                 navController.navigate("detail/${Gson().toJson(product)}")
             }, clickLickAction = {
                 viewModel.onClickLikeProduct(product){
-
+                    refresh()
                 }
             })
             Spacer(

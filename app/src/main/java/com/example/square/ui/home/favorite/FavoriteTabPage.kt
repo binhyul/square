@@ -22,39 +22,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.square.REFRESH
 import com.example.square.ui.home.Product
 import com.google.gson.Gson
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collectLatest
 
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun FavoriteTabPage(
     navController: NavController,
-    refresh: StateFlow<Boolean>,
-    viewModel: FavoritePageViewModel = hiltViewModel()
+    viewModel: FavoritePageViewModel,
+    refresh : () -> Unit
 ) {
-    val coroutineScope = rememberCoroutineScope()
-
     val products by viewModel.products.collectAsState()
     var showClearButton by remember { mutableStateOf(false) }
     val focusRequester = remember { FocusRequester() }
     val searchText by viewModel.searchText.collectAsState()
     val keyboardController = LocalSoftwareKeyboardController.current
-
-    LaunchedEffect(Unit) {
-        focusRequester.requestFocus()
-        refresh.collectLatest {
-            if (it) {
-                navController.currentBackStackEntry?.savedStateHandle?.remove<Boolean>(REFRESH)
-                viewModel.refreshProduct()
-            }
-        }
-    }
 
     Column {
         OutlinedTextField(
@@ -111,7 +95,7 @@ fun FavoriteTabPage(
                     navController.navigate("detail/${Gson().toJson(product)}")
                 }, clickLickAction = {
                     viewModel.onClickLikeProduct(product) {
-
+                        refresh()
                     }
                 })
                 Spacer(

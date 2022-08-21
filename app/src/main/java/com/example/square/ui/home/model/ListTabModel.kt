@@ -9,10 +9,11 @@ data class ListTabModel(
     val productList: List<ProductModel>
 )
 
+@Parcelize
 data class CategoryModel(
     val id: String,
     val name: String
-)
+) : Parcelable
 
 @Parcelize
 data class ProductModel(

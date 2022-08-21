@@ -19,7 +19,7 @@ import com.example.square.ui.home.model.AssetParamType
 import com.example.square.ui.theme.SquareTheme
 import dagger.hilt.android.AndroidEntryPoint
 
-const val REFRESH = "refresh"
+const val DETAIL_PAGE_LIKE_REFRESH = "like_refresh"
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -44,7 +44,7 @@ fun Main() {
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
             val refresh =
-                it.savedStateHandle.getStateFlow(REFRESH, false)
+                it.savedStateHandle.getStateFlow(DETAIL_PAGE_LIKE_REFRESH, false)
             Home(navController, refresh)
         }
         composable("detail/{${PRODUCT_DETAIL}}", arguments = listOf(
