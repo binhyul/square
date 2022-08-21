@@ -1,9 +1,13 @@
 package com.example.square.domain
 
 import com.example.square.data.AppRepository
-import com.example.square.ui.home.model.CategoryModel
+import com.example.square.local.model.toModel
+import com.example.square.remote.model.ProductItemModel
+import com.example.square.remote.model.toModel
 import com.example.square.ui.home.model.ListTabModel
 import com.example.square.ui.home.model.ProductModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
@@ -12,24 +16,26 @@ class LoadListTabDataUseCase @Inject constructor(
 ) : UseCase<Unit, ListTabModel>() {
 
     override suspend fun execute(parameters: Unit): ListTabModel {
-        val data = appRepository.getProductList()
-        return ListTabModel(
-            data.categories.sortedBy { it.order }.map {
-                CategoryModel(
-                    it.key ?: throw IllegalStateException("category key is not nullable"),
-                    it.name.orEmpty()
-                )
-            },
-            data.productions.sortedBy { it.order }.map {
-                ProductModel(
-                    it.key ?: throw IllegalStateException("product key is not nullable"),
-                    it.categoryKey.orEmpty(),
-                    it.price ?: 0,
-                    it.name.orEmpty(),
-                    it.order ?: 0
-                )
-            }
-        )
+        return withContext(Dispatchers.IO) {
+            val data = appRepository.getProductList()
+            ListTabModel(
+                data.categories.sortedBy { it.order }.map {
+                    it.toModel()
+                },
+                data.productions.sortedBy { it.order }.map {
+                    it.findLikeProduct()
+                }
+            )
+        }
+    }
+
+    private suspend fun ProductItemModel.findLikeProduct(): ProductModel {
+        return if (key != null) {
+            val findLikeProduct = appRepository.findProduct(key)?.toModel()
+            findLikeProduct ?: toModel(false)
+        } else {
+            toModel(false)
+        }
     }
 }
 

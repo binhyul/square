@@ -14,8 +14,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.square.ui.home.model.AssetParamType
 import com.example.square.ui.detail.ProductDetail
+import com.example.square.ui.detail.ProductDetailViewModel.Companion.PRODUCT_DETAIL
 import com.example.square.ui.home.Home
-import com.example.square.ui.home.model.ProductModel
 import com.example.square.ui.theme.SquareTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -43,11 +43,10 @@ fun Main() {
         composable("home") {
             Home(navController)
         }
-        composable("detail/{model}", arguments = listOf(
-            navArgument("model") { type = AssetParamType() }
+        composable("detail/{${PRODUCT_DETAIL}}", arguments = listOf(
+            navArgument(PRODUCT_DETAIL) { type = AssetParamType() }
         )) {
-            val model = it.arguments?.getParcelable<ProductModel>("model") ?: return@composable
-            ProductDetail(model)
+            ProductDetail()
         }
     }
 }

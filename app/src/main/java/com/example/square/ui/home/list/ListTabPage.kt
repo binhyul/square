@@ -1,4 +1,4 @@
-package com.example.square.ui.home
+package com.example.square.ui.home.list
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -22,8 +22,10 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun ListTabPage(navController: NavController) {
-    val viewModel: ListPageViewModel = hiltViewModel()
+fun ListTabPage(
+    navController: NavController,
+    viewModel: ListPageViewModel = hiltViewModel()
+) {
     val coroutineScope = rememberCoroutineScope()
     val pageState = rememberPagerState()
     val tabs by viewModel.tabs.collectAsState()

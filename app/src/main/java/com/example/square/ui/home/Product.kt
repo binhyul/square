@@ -18,7 +18,9 @@ import com.example.square.R
 import com.example.square.ui.home.model.ProductModel
 
 @Composable
-fun Product(productModel: ProductModel, clickAction: () -> Unit) {
+fun Product(
+    productModel: ProductModel, clickAction: () -> Unit, clickLickAction: () -> Unit
+) {
     Row(modifier = Modifier
         .fillMaxWidth()
         .padding(horizontal = 20.dp)
@@ -47,6 +49,9 @@ fun Product(productModel: ProductModel, clickAction: () -> Unit) {
             modifier = Modifier
                 .size(36.dp)
                 .align(Alignment.CenterVertically)
+                .clickable {
+                    clickLickAction.invoke()
+                }
         )
     }
 }

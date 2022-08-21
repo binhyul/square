@@ -1,7 +1,7 @@
 package com.example.square.ui.home.model
 
 import android.os.Parcelable
-import com.google.gson.annotations.SerializedName
+import com.example.square.local.model.ProductEntity
 import kotlinx.parcelize.Parcelize
 
 data class ListTabModel(
@@ -16,10 +16,20 @@ data class CategoryModel(
 
 @Parcelize
 data class ProductModel(
-    @SerializedName("id") val id: String,
-    @SerializedName("categoryId") val categoryId: String,
-    @SerializedName("price") val price: Int,
-    @SerializedName("name") val name: String,
-    @SerializedName("order") val order: Int,
-    @SerializedName("like") val like: Boolean = false
+    val id: String,
+    val categoryId: String,
+    val price: Int,
+    val name: String,
+    val order: Int,
+    val like: Boolean = false
 ) : Parcelable
+
+
+fun ProductModel.toEntity() = ProductEntity(
+    id,
+    categoryId,
+    price,
+    null,
+    name,
+    order
+)

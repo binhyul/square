@@ -2,6 +2,7 @@ package com.example.square.local.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.square.ui.home.model.ProductModel
 
 @Entity(tableName = "product")
 data class ProductEntity(
@@ -12,4 +13,13 @@ data class ProductEntity(
     val thumbnail: String?,
     val name: String?,
     val order: Int?
+)
+
+fun ProductEntity.toModel() = ProductModel(
+    id,
+    categoryKey.orEmpty(),
+    price ?: 0,
+    name.orEmpty(),
+    order ?: 0,
+    true
 )

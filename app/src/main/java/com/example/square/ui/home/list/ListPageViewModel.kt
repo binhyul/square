@@ -1,8 +1,10 @@
-package com.example.square.ui.home
+package com.example.square.ui.home.list
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.square.domain.ClickLikeProductUseCase
 import com.example.square.domain.LoadListTabDataUseCase
 import com.example.square.ui.home.model.CategoryModel
 import com.example.square.ui.home.model.ProductModel
@@ -14,7 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ListPageViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val loadListTabDataUseCase: LoadListTabDataUseCase
+    private val loadListTabDataUseCase: LoadListTabDataUseCase,
+    private val clickLikeProductUseCase: ClickLikeProductUseCase
 ) : ViewModel() {
 
     val tabs: StateFlow<List<CategoryModel>> = savedStateHandle.getStateFlow(
@@ -32,6 +35,32 @@ class ListPageViewModel @Inject constructor(
             loadListTabDataUseCase(Unit).runCatching {
                 onSuccess {
                     savedStateHandle[LIST_TAB] = it.categories
+                    savedStateHandle[LIST_PRODUCT] = it.productList
+                }.onFailure {
+                    it.printStackTrace()
+                }
+            }
+        }
+    }
+
+    fun onClickLikeProduct(productModel: ProductModel, update: suspend () -> Unit) {
+        viewModelScope.launch {
+            clickLikeProductUseCase(productModel).runCatching {
+                onSuccess {
+                    refreshProduct()
+                    update()
+                }.onFailure {
+                    it.printStackTrace()
+                }
+            }
+        }
+    }
+
+    fun refreshProduct() {
+        Log.e("list ->", "refreshProduct")
+        viewModelScope.launch {
+            loadListTabDataUseCase(Unit).runCatching {
+                onSuccess {
                     savedStateHandle[LIST_PRODUCT] = it.productList
                 }.onFailure {
                     it.printStackTrace()

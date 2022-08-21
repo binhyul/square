@@ -9,10 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import com.example.square.ui.home.favorite.FavoriteTabPage
+import com.example.square.ui.home.list.ListTabPage
 import com.example.square.ui.home.model.TabType
-import com.example.square.ui.theme.SquareTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.pagerTabIndicatorOffset
@@ -23,8 +23,11 @@ import kotlinx.coroutines.launch
 @Composable
 fun Home(navController: NavController) {
     val coroutineScope = rememberCoroutineScope()
-    val pageState = rememberPagerState()
     val tabs = TabType.values()
+    val pageState = rememberPagerState(
+        initialPage = 0
+    )
+
     Column {
         TabRow(selectedTabIndex = pageState.currentPage,
             indicator = { tabPositions ->
@@ -45,9 +48,9 @@ fun Home(navController: NavController) {
             }
         }
         HorizontalPager(count = tabs.size, state = pageState) { page ->
-            when (page) {
+            when (pageState.currentPage) {
                 0 -> ListTabPage(navController = navController)
-                else -> FavoriteTabPage()
+                else -> FavoriteTabPage(navController = navController)
             }
         }
     }
