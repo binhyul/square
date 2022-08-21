@@ -73,7 +73,6 @@ class FavoritePageViewModel @Inject constructor(
     }
 
      fun refreshProduct() {
-         Log.e("favorite ->","refreshProduct")
         loadPageData(searchText.value)
     }
 

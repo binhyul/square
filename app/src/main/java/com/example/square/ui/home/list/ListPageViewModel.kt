@@ -57,7 +57,6 @@ class ListPageViewModel @Inject constructor(
     }
 
     fun refreshProduct() {
-        Log.e("list ->", "refreshProduct")
         viewModelScope.launch {
             loadListTabDataUseCase(Unit).runCatching {
                 onSuccess {
