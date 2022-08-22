@@ -1,4 +1,4 @@
-package com.example.square.ui.home
+package com.example.square.ui.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -13,8 +13,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.example.square.R
+import com.example.square.ui.resource.Dimens.Global.pageMargin
+import com.example.square.ui.resource.Dimens.Product.productLikeIconSize
+import com.example.square.ui.resource.Dimens.Product.productThumbnailSize
 import com.example.square.ui.home.model.ProductModel
 
 @Composable
@@ -23,14 +25,14 @@ fun Product(
 ) {
     Row(modifier = Modifier
         .fillMaxWidth()
-        .padding(horizontal = 20.dp)
+        .padding(horizontal = pageMargin)
         .clickable {
             clickAction.invoke()
         }) {
         Image(
             painter = painterResource(id = R.drawable.square),
             contentDescription = "thumbnail",
-            modifier = Modifier.size(100.dp)
+            modifier = Modifier.size(productThumbnailSize)
         )
         Column(
             modifier = Modifier
@@ -47,7 +49,7 @@ fun Product(
                 Icons.Outlined.FavoriteBorder
             }, contentDescription = "favorite",
             modifier = Modifier
-                .size(36.dp)
+                .size(productLikeIconSize)
                 .align(Alignment.CenterVertically)
                 .clickable {
                     clickLickAction.invoke()

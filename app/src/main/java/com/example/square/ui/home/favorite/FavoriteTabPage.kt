@@ -20,10 +20,15 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.square.ui.home.Product
+import com.example.square.R
+import com.example.square.ui.resource.Dimens.Global.pageMargin
+import com.example.square.ui.resource.Dimens.Global.pageTopMargin
+import com.example.square.ui.resource.Dimens.Search.searchBarBorder
+import com.example.square.ui.component.Product
 import com.google.gson.Gson
 
 
@@ -32,7 +37,7 @@ import com.google.gson.Gson
 fun FavoriteTabPage(
     navController: NavController,
     viewModel: FavoritePageViewModel,
-    refresh : () -> Unit
+    refresh: () -> Unit
 ) {
     val products by viewModel.products.collectAsState()
     var showClearButton by remember { mutableStateOf(false) }
@@ -44,18 +49,18 @@ fun FavoriteTabPage(
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 2.dp)
+                .padding(vertical = pageMargin)
                 .onFocusChanged { focusState ->
                     showClearButton = (focusState.isFocused)
                 }
                 .focusRequester(focusRequester)
-                .border(width = 4.dp, color = Color.Black),
+                .border(width = searchBarBorder, color = Color.Black),
             value = searchText,
             onValueChange = {
                 viewModel.onChangeSearchText(it)
             },
             placeholder = {
-                Text(text = "검색어")
+                Text(text = stringResource(id = R.string.search_place_holder))
             },
             colors = TextFieldDefaults.textFieldColors(
                 focusedIndicatorColor = Color.Transparent,
@@ -88,7 +93,7 @@ fun FavoriteTabPage(
         LazyColumn(
             modifier = Modifier
                 .fillMaxHeight()
-                .padding(top = 10.dp)
+                .padding(top = pageTopMargin)
         ) {
             items(products) { product ->
                 Product(productModel = product, clickAction = {

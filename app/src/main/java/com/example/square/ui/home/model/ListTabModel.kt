@@ -17,11 +17,11 @@ data class CategoryModel(
 
 @Parcelize
 data class ProductModel(
-    val id: String,
-    val categoryId: String,
-    val price: Int,
-    val name: String,
-    val order: Int,
+    val id: String = "",
+    val categoryId: String = "",
+    val price: Int = 0,
+    val name: String = "",
+    val order: Int = 0,
     val like: Boolean = false
 ) : Parcelable
 

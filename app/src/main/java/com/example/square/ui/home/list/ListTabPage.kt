@@ -11,8 +11,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.square.ui.resource.Dimens
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.pagerTabIndicatorOffset
@@ -30,7 +30,7 @@ fun ListTabPage(
     val pageState = rememberPagerState()
     val tabs by viewModel.tabs.collectAsState()
 
-    Column(modifier = Modifier.padding(top = 10.dp)) {
+    Column(modifier = Modifier.padding(top = Dimens.Global.pageTopMargin)) {
         if (tabs.isNotEmpty()) {
             TabRow(selectedTabIndex = pageState.currentPage,
                 indicator = { tabPositions ->

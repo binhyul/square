@@ -19,11 +19,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.square.R
 import com.example.square.DETAIL_PAGE_LIKE_REFRESH
+import com.example.square.R
+import com.example.square.ui.resource.Dimens
 
 @Composable
 fun ProductDetail(
@@ -36,13 +36,13 @@ fun ProductDetail(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 50.dp),
+            .padding(top = Dimens.Product.Detail.pageTopMargin),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
             painter = painterResource(id = R.drawable.square),
             contentDescription = "thumbnail",
-            modifier = Modifier.size(100.dp)
+            modifier = Modifier.size(Dimens.Product.productThumbnailSize)
         )
         Text(text = product.name)
         Text(text = stringResource(id = R.string.price, product.price))
@@ -53,7 +53,7 @@ fun ProductDetail(
                 Icons.Outlined.FavoriteBorder
             }, contentDescription = "favorite",
             modifier = Modifier
-                .size(36.dp)
+                .size(Dimens.Product.productLikeIconSize)
                 .clickable {
                     viewModel.onClickLikeProduct()
                     navController.previousBackStackEntry?.savedStateHandle?.set(

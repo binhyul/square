@@ -1,6 +1,5 @@
 package com.example.square.ui.detail
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -20,7 +19,7 @@ class ProductDetailViewModel @Inject constructor(
 
     val product: StateFlow<ProductModel> = savedStateHandle.getStateFlow(
         PRODUCT_DETAIL,
-        ProductModel("", "", 0, "", 0)
+        ProductModel()
     )
 
     fun onClickLikeProduct() {
