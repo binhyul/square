@@ -11,6 +11,7 @@ object Dimens {
 
     object Search {
         val searchBarBorder = 4.dp
+        val searchBarVerticalPadding = 2.dp
     }
 
     object Product {

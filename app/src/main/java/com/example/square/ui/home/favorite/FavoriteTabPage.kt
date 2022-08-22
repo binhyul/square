@@ -25,10 +25,10 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.square.R
-import com.example.square.ui.resource.Dimens.Global.pageMargin
+import com.example.square.ui.component.Product
+import com.example.square.ui.resource.Dimens
 import com.example.square.ui.resource.Dimens.Global.pageTopMargin
 import com.example.square.ui.resource.Dimens.Search.searchBarBorder
-import com.example.square.ui.component.Product
 import com.google.gson.Gson
 
 
@@ -49,7 +49,10 @@ fun FavoriteTabPage(
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = pageMargin)
+                .padding(
+                    vertical = Dimens.Search.searchBarVerticalPadding,
+                    horizontal = Dimens.Global.pageMargin
+                )
                 .onFocusChanged { focusState ->
                     showClearButton = (focusState.isFocused)
                 }
